@@ -15,7 +15,6 @@ int altura(noAvl *no) {
     if (no == NULL) return 0;
     return no->altura;
 }
-
 // Função para calcular o fator de balanceamento
 int fatorBalanceamento(noAvl *no) {
     if (no == NULL) return 0;
@@ -29,12 +28,12 @@ void atualizarAltura(noAvl *no) {
     no->altura = (altesq > altdir ? altesq : altdir) + 1;
 }
 
-// Rotação simples à direita
+// Rotação à direita
 noAvl *rotacao_direita(noAvl *noDesbalanceado) {
     noAvl *novaRaiz = noDesbalanceado->esq;
     noAvl *subarvoreTemporaria  = novaRaiz->dir;
 
-    novaRaiz->dir = noDesbalanceado;
+       novaRaiz->dir = noDesbalanceado;
     noDesbalanceado->esq = subarvoreTemporaria ;
 
     atualizarAltura(noDesbalanceado);
@@ -43,7 +42,7 @@ noAvl *rotacao_direita(noAvl *noDesbalanceado) {
     return novaRaiz;
 }
 
-// Rotação simples à esquerda
+// Rotação à esquerda
 noAvl *rotacao_esquerda(noAvl *noDesbalanceado) {
     noAvl *novaRaiz = noDesbalanceado->dir;
     noAvl *subarvoreTemporaria  = noDesbalanceado->esq;
@@ -51,7 +50,7 @@ noAvl *rotacao_esquerda(noAvl *noDesbalanceado) {
     novaRaiz->esq = noDesbalanceado;
     noDesbalanceado->dir = subarvoreTemporaria ;
 
-    atualizarAltura(noDesbalanceado);
+        atualizarAltura(noDesbalanceado);
     atualizarAltura(novaRaiz);
 
     return novaRaiz;
@@ -63,19 +62,19 @@ noAvl* balancear(noAvl *no) {
 
     if (fb > 1) {
         if (fatorBalanceamento(no->esq) < 0)
-            no->esq = rotacao_esquerda(no->esq); // Caso LR
-        return rotacao_direita(no); // Caso LL
+            no->esq = rotacao_esquerda(no->esq); 
+        return rotacao_direita(no);
     }
     if (fb < -1) {
         if (fatorBalanceamento(no->dir) > 0)
-            no->dir = rotacao_direita(no->dir); // Caso RL
-        return rotacao_esquerda(no); // Caso RR
+            no->dir = rotacao_direita(no->dir); 
+        return rotacao_esquerda(no); 
     }
 
-    return no;
+      return no;
 }
 
-// Função de inserção AVL
+// Função de inserção 
 noAvl* inserir(noAvl *raiz, int chave) {
     if (raiz == NULL) {
         noAvl *novoNo = (noAvl*)malloc(sizeof(noAvl));
@@ -85,7 +84,7 @@ noAvl* inserir(noAvl *raiz, int chave) {
         return novoNo;
     }
 
-    if (chave < raiz->chave)
+        if (chave < raiz->chave)
         raiz->esq = inserir(raiz->esq, chave);
     else if (chave > raiz->chave)
         raiz->dir = inserir(raiz->dir, chave);
@@ -94,6 +93,15 @@ noAvl* inserir(noAvl *raiz, int chave) {
 
     atualizarAltura(raiz);
     return balancear(raiz);
+}
+
+// Função de busca
+noAvl* buscar(noAvl *raiz, int chave) {
+    if (raiz == NULL || raiz->chave == chave)
+        return raiz;
+    if (chave < raiz->chave)
+        return buscar(raiz->esq, chave);
+    return buscar(raiz->dir, chave);
 }
 
 // Cria árvore vazia
@@ -110,9 +118,17 @@ void emOrdem(noAvl *raiz) {
     }
 }
 
-// Exemplo de uso
-int main() {
-    pont raiz = criaArvore();
+void imprimirArvore(noAvl *raiz, int nivel) {
+    if (raiz == NULL)
+        return;
 
-    return 0;
+    imprimirArvore(raiz->dir, nivel + 1);
+
+    for (int i = 0; i < nivel; i++)
+        printf("     "); 
+        
+
+    printf("%d\n", raiz->chave);
+
+    imprimirArvore(raiz->esq, nivel + 1);
 }
