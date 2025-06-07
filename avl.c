@@ -45,16 +45,17 @@ noAvl *rotacao_direita(noAvl *noDesbalanceado) {
 // Rotação à esquerda
 noAvl *rotacao_esquerda(noAvl *noDesbalanceado) {
     noAvl *novaRaiz = noDesbalanceado->dir;
-    noAvl *subarvoreTemporaria  = noDesbalanceado->esq;
+    noAvl *subarvoreTemporaria = novaRaiz->esq;
 
     novaRaiz->esq = noDesbalanceado;
-    noDesbalanceado->dir = subarvoreTemporaria ;
+    noDesbalanceado->dir = subarvoreTemporaria;
 
-        atualizarAltura(noDesbalanceado);
+    atualizarAltura(noDesbalanceado);
     atualizarAltura(novaRaiz);
 
     return novaRaiz;
 }
+
 
 // Função de balanceamento
 noAvl* balancear(noAvl *no) {
@@ -109,6 +110,16 @@ pont criaArvore() {
     return NULL;
 }
 
+
+// Melhorando o balanceamento pra não exibir apenas em ordem crescente 
+void preOrdem(struct noAvl* raiz) {
+    if (raiz != NULL) {
+        printf("%d ", raiz->chave);  
+        preOrdem(raiz->esq);
+        preOrdem(raiz->dir);
+    }
+}
+
 // Impressão em ordem
 void emOrdem(noAvl *raiz) {
     if (raiz != NULL) {
@@ -118,17 +129,15 @@ void emOrdem(noAvl *raiz) {
     }
 }
 
-void imprimirArvore(noAvl *raiz, int nivel) {
-    if (raiz == NULL)
-        return;
-
-    imprimirArvore(raiz->dir, nivel + 1);
-
-    for (int i = 0; i < nivel; i++)
-        printf("     "); 
-        
-
-    printf("%d\n", raiz->chave);
-
-    imprimirArvore(raiz->esq, nivel + 1);
+void imprimirEmLinha(noAvl *raiz) {
+    if (raiz != NULL) {
+        imprimirEmLinha(raiz->esq);
+        static int primeiro = 1;
+        if (!primeiro) printf(" -> ");
+        printf("%d", raiz->chave);
+        primeiro = 0;
+        imprimirEmLinha(raiz->dir);
+    }
 }
+
+

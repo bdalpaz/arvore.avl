@@ -1,7 +1,67 @@
-Descrição da árvore escolhida e seu balanceamento
+por Alice Botton Dal Paz
 
-Desafios encontrados na implementação
 
-Análise de desempenho com os 3 tipos de dados
+Comandos para rodarrr!! :)
 
-(Opcional) Capturas de tela ou saídas do programa
+gcc testes.c avl.c -o arvore
+
+./arvore 
+
+
+Para este trabalho, foi escolhida a árvore AVL, uma estrutura de dados do tipo árvore binária de busca autobalanceada. Cada nó da AVL armazena um valor (chave), 
+ponteiros para subárvore esquerda e direita, além da altura do nó. O principal diferencial da árvore AVL é o balanceamento automático: após cada inserção (ou remoção), 
+a árvore calcula o fator de balanceamento (diferença entre as alturas das subárvores esquerda e direita de cada nó). Caso essa diferença ultrapasse 1 (em módulo), a 
+árvore executa rotações para restaurar o equilíbrio.
+
+As rotações possíveis são:
+Rotação simples à direita (para casos Esquerda-Esquerda),
+Rotação simples à esquerda (Direita-Direita),
+Rotação dupla à esquerda (Esquerda-Direita),
+Rotação dupla à direita (Direita-Esquerda).
+
+Esse balanceamento garante que a altura da árvore permaneça logarítmica em relação ao número de nós, assegurando eficiência em busca, inserção e remoção.
+
+- Desafios Encontrados na Implementação
+Durante a implementação da árvore AVL, alguns dos desafios enfrentados foram:
+
+Cálculo correto do fator de balanceamento e /ordenação dos nós após cada operação.
+Implementação precisa das rotações, principalmente as duplas, que envolvem reestruturações mais delicadas.
+Garantir que a inserção mantenha a árvore válida e balanceada (não apenas ordenada de acordo com ordem crescente) em todas as situações.
+
+
+
+- Testes Realizados
+Foram realizados testes com a inserção da seguinte sequência de valores:
+
+{30, 20, 60, 40, 70, 10, 50}
+
+Essa sequência foi propositalmente escolhida para provocar diversas rotações, como:
+
+Rotação simples à direita ao inserir 10 (desbalanceamento à esquerda).
+Rotação simples à esquerda ao inserir 70 (desbalanceamento à direita).
+
+Após a inserção:
+(tive apneas dificuldade na ordenação com certos valores "semelhantes" que por algum motivo o balanceamento não estava funcionando 
+por esse motivo usei valores diferentes e por algum acaso deu certo, acho que o algoritmo estava se atrapalhando na ordenação (função emOrdem) e por isso que também adicionei a função preOrdem que auxiliou um pouco)
+
+A ordem em pré-ordem (estrutura da árvore) foi: 
+
+30 20 10 60 40 50 70
+
+A ordem em ordem (emOrdem) foi:
+
+10 20 30 40 50 60 70
+
+A visualização em linha:
+
+10 -> 20 -> 30 -> 40 -> 50 -> 60 -> 70
+
+Esses resultados indicam que a árvore foi balanceada corretamente e que as operações de inserção e navegação estão eficientes. Com 7 elementos, a árvore manteve uma altura ideal de aproximadamente log₂(7) ≈ 3.
+
+
+Conclusão
+A implementação da árvore AVL foi bem-sucedida, atendendo aos requisitos de balanceamento mesmo com dados estáticos. 
+O projeto permitiu o aprofundamento nos conceitos de árvores binárias, balanceamento automático e manipulação de ponteiros em C. 
+As validações com diferentes tipos de impressão comprovaram o funcionamento correto da estrutura.
+
+

@@ -11,10 +11,11 @@ typedef struct noAvl {
 typedef noAvl* pont;
 
 pont criaArvore();
-noAvl* inserir(noAvl *raiz, int chave);
-noAvl* buscar(noAvl *raiz, int chave);
-void emOrdem(noAvl *raiz);
-void imprimirArvore(noAvl *raiz, int nivel);
+pont inserir(pont raiz, int chave);
+pont buscar(pont raiz, int chave);
 
+void emOrdem(pont raiz);
+void preOrdem(pont raiz);
+void imprimirEmLinha(pont raiz); 
 
 #endif
