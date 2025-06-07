@@ -1,6 +1,6 @@
 # 🌳 Trabalho de Árvore AVL
 
-### por **Alice Dal Paz**
+### por **Alice Botton Dal Paz**
 
 🧠 _Programação com Estruturas Avançadas de Dados!_
 
